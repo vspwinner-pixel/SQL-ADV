@@ -22,6 +22,7 @@ SELECT
 	, Tariff
 	, Ward
 	, Hospital
+	,admittedDate
 FROM
 	PatientStay;
 
@@ -36,7 +37,8 @@ SELECT
 	, p.Tariff
 	, p.Hospital
 FROM
-	PatientStay p;
+	PatientStay p
+	where p.hospital IN('Kingston', 'Oxleas');
 
 /*
 Filter rows  with the WHERE clause
@@ -115,6 +117,7 @@ SELECT
 	, ps.AdmittedDate
 	-- See documentation for DATEADD at https://www.w3schools.com/sql/func_sqlserver_dateadd.asp
 	, DATEADD(WEEK, -2, ps.AdmittedDate) AS ReminderDate
+	,DATEDIFF(Day,ps.admittedDate, ps.DischargeDate) AS DaysInHospital
 	, ps.Hospital
 	, ps.Ward
 	, ps.Tariff
@@ -203,9 +206,10 @@ JOIN DimHospital h ON
 SELECT
 	ps.PatientId
 	, ps.AdmittedDate
+	,h.Hospital
 	, h.HospitalType
 	, h.HospitalSize
 FROM
 	PatientStay ps
-JOIN DimHospital h ON
+RIGHT  JOIN DimHospitalBad h ON
 	ps.Hospital = h.Hospital;
