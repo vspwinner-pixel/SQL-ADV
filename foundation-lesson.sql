@@ -9,7 +9,7 @@ Comments can also be across several lines
 SQL does not care about white space or capitalisation but you should!
 */
 -- simplest statement, bring back all data from a table
-SELECT 
+SELECT
 	*
 FROM
 	PatientStay;
@@ -22,7 +22,7 @@ SELECT
 	, Tariff
 	, Ward
 	, Hospital
-	,admittedDate
+	, admittedDate
 FROM
 	PatientStay;
 
@@ -38,7 +38,7 @@ SELECT
 	, p.Hospital
 FROM
 	PatientStay p
-	where p.hospital IN('Kingston', 'Oxleas');
+where p.hospital IN('Kingston', 'Oxleas');
 
 /*
 Filter rows  with the WHERE clause
@@ -76,7 +76,7 @@ FROM
 	PatientStay ps
 WHERE
 	ps.Hospital IN ('Kingston', 'PRUH');
-	--WHERE ps.Hospital LIKE 'Kin%'
+--WHERE ps.Hospital LIKE 'Kin%'
 
 /*
 Sort: by the values of one or more columns with the ORDER BY clause
@@ -117,7 +117,7 @@ SELECT
 	, ps.AdmittedDate
 	-- See documentation for DATEADD at https://www.w3schools.com/sql/func_sqlserver_dateadd.asp
 	, DATEADD(WEEK, -2, ps.AdmittedDate) AS ReminderDate
-	,DATEDIFF(Day,ps.admittedDate, ps.DischargeDate) AS DaysInHospital
+	, DATEDIFF(Day,ps.admittedDate, ps.DischargeDate) AS DaysInHospital
 	, ps.Hospital
 	, ps.Ward
 	, ps.Tariff
@@ -134,7 +134,7 @@ Aggregate is to get a single result from a set of numbers
 Aggregation functions include SUM() and COUNT(*) but also MIN(), MAX(), AVERAGE()..
 We can group by at whatever level of aggregation we need and calculate several aggregations
 */
-	
+
 -- Aggregate over the entire dataset
 SELECT
 	COUNT(*) AS NumberOfPatients
@@ -196,7 +196,7 @@ SELECT
 	*
 FROM
 	PatientStay ps
-JOIN DimHospital h ON
+	JOIN DimHospital h ON
 	ps.Hospital = h.Hospital;
 
 /*
@@ -206,10 +206,10 @@ JOIN DimHospital h ON
 SELECT
 	ps.PatientId
 	, ps.AdmittedDate
-	,h.Hospital
+	, h.Hospital
 	, h.HospitalType
 	, h.HospitalSize
 FROM
 	PatientStay ps
-RIGHT  JOIN DimHospitalBad h ON
+	RIGHT JOIN DimHospitalBad h ON
 	ps.Hospital = h.Hospital;
